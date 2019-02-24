@@ -34,7 +34,8 @@ export default function SpeechRecognition(options) {
         this.state = {
           interimTranscript,
           finalTranscript,
-          listening: false
+          listening: false,
+          allResults: [],
         }
       }
 
@@ -92,7 +93,11 @@ export default function SpeechRecognition(options) {
             )
           }
         }
-        this.setState({ finalTranscript, interimTranscript })
+        this.setState({ 
+          finalTranscript, 
+          interimTranscript,
+          allResults: event.results
+        })
       }
 
       concatTranscripts(...transcriptParts) {
@@ -144,6 +149,7 @@ export default function SpeechRecognition(options) {
             stopListening={this.stopListening}
             transcript={transcript}
             recognition={recognition}
+            allResults={allResults}
             browserSupportsSpeechRecognition={browserSupportsSpeechRecognition}
             {...this.state}
             {...this.props} />
